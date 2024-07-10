@@ -1,12 +1,15 @@
 import express from 'express';
 import indexRouter from './routes/index';
 import sequelize from './config/database';
+import { setupSwagger } from './config/swagger';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 app.use(indexRouter);
+
+setupSwagger(app);
 
 sequelize.sync({ force: false }).then(() => {
     console.log('Tabelas sincronizadas!');
